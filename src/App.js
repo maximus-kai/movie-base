@@ -34,7 +34,7 @@ class App extends Component {
 
 
 
-  apiurl = "http://www.omdbapi.com/?i=tt3896198&apikey=f79e2e12" ;
+  apiurl = "https://www.omdbapi.com/?i=tt3896198&apikey=f79e2e12" ;
 
 
 
@@ -46,7 +46,10 @@ class App extends Component {
   axios(`${this.apiurl}&s=${this.state.searchfield}`)
   .then((theresult) => this.setState({results:theresult.data.Search}))
   .then((movies) => { console.log("the list contains the following: ",movies.data) } )
- .catch((error)=>{ console.log(error)});
+ .catch((error)=>{
+    console.log(error)
+  
+  });
   // }
 
 
@@ -65,22 +68,42 @@ class App extends Component {
 
 
   render(){
-    
-    return (
-      <div >
-          {/* component for the detail amount of cards */}
-          <FruitsHeader count = {this.state.count} changecount = {this.changecount}/>
-          <div className="container">
-                {/* the serch bar component */}
-        <Searchbar handleinput = {this.handleinput} search={this.search} changecount = {this.changecount}/>
-          {/* division for the array of cards */}
-              <div className="cards">
-            {/* the component for array of cards */}
-                  <CardList resultfromapi = {this.state.results} />
-              </div>
-          </div>
-    </div>
-    );
+    if (!this.state.results){
+      console.log("o ti baje")
+      return (
+        <div >
+        {/* component for the detail amount of cards */}
+        <FruitsHeader count = {this.state.count} changecount = {this.changecount}/>
+        <div className="container">
+              {/* the serch bar component */}
+      <Searchbar handleinput = {this.handleinput} search={this.search} changecount = {this.changecount}/>
+        {/* division for the array of cards */}
+            <div className="cards">
+          {/* the component for array of cards */}
+                {/* <CardList resultfromapi = {this.state.results} /> */}
+                <h5> {`Sorry..., No movie was found matching the Search: "${this.state.searchfield}"`}</h5>
+            </div>
+        </div>
+  </div>
+      );
+
+    }else{
+      return (
+        <div >
+            {/* component for the detail amount of cards */}
+            <FruitsHeader count = {this.state.count} changecount = {this.changecount}/>
+            <div className="container">
+                  {/* the serch bar component */}
+          <Searchbar handleinput = {this.handleinput} search={this.search} changecount = {this.changecount}/>
+            {/* division for the array of cards */}
+                <div className="cards">
+              {/* the component for array of cards */}
+                    <CardList resultfromapi = {this.state.results} />
+                </div>
+            </div>
+      </div>
+      );
+    }
   }
 }
 

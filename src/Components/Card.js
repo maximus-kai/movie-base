@@ -5,7 +5,7 @@ import React from 'react'
 function Card({picinfo , nameinfo , resultfromapi}) {
   console.log('the card function also ran')
     return (
-      <div className="col-md-2">
+      <div className="col-md-3">
       <div class="card shadow-sm">
           <img class="card-img-top" width="50px" height="200px" src={resultfromapi.Poster} alt="Card"/>
           <div class="card-body">
